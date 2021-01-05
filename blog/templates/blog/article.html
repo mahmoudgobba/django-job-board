@@ -1,0 +1,6 @@
+<div class="comment-div">
+  {% include 'blog.html' with is_last=is_last comment_list = comment_list %}
+   <!-- first time it will be loaded with page no 1 and when you call jquery it will be loaded with respective page number. -->
+</div>
+ <input type="hidden" id="page_val" value="2" />
+ <!-- setting page no according jquery calls ( by default it will be 2 for getting next comment data ) -->

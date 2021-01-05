@@ -1,0 +1,129 @@
+{% extends "job/job_base.html" %}
+{% load bootstrap4 %}
+{% block detial %}
+    <!-- bradcam_area  -->
+    <div class="bradcam_area bradcam_bg_1">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="bradcam_text">
+                      <h3>{{ job_user.username }} profile</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/ bradcam_area  -->
+    <div class="job_details_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="job_sumary">
+                        <div class="summery_header">
+                            <h3>Profile Summery</h3>
+                        </div>
+                        <div class="job_content">
+                            <ul>
+                                <li>Name: <span>{{ job_user.username }}</span></li>
+                                <li>Email: <span>{{ job_user.email }}</span></li>
+                                <li>Phone number: <span>{{ job_user.profile_user.phone_number }}</span></li>
+                                <li>Image:</li>
+                                {% if job_user.profile_user.image %}
+                                <span><img src="{{job_user.profile_user.image.url|default_if_none:'#'}}" width="200" height="200"></span>
+                                {% endif %}
+                                <li>City: <span>{{ job_user.profile_user.city }}</span></li>
+                            </ul>
+                        </div>
+                        <!-- <div class="p-5">
+                          <a class="boxed-btn3 w-100" href="{% url 'accounts:profile_edit' %}">Edit Profile</a>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- job_listing_area_start  -->
+    <div class="job_listing_area ">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="job_lists m-0">
+                        <div class="row">
+                            <div class="col-lg-14 col-md-14">
+
+                              {% for job in job_list %}
+                                <div class="single_jobs white-bg d-flex justify-content-between">
+                                    <div class="jobs_left d-flex align-items-center">
+                                        <div class="jobs_conetent">
+                                            <a href="{% url 'jobs:job_detail' job.pk %}"><h4>{{job.title}}</h4></a>
+                                            <div class="links_locat d-flex align-items-center">
+                                                <div class="location">
+                                                    <p><i class="ti-user"></i>{{job.owner}}</p>
+                                                </div>
+                                                <div class="location">
+                                                    <p> <i class="fa fa-map-marker"></i>{{job.location}}</p>
+                                                </div>
+                                                <div class="location">
+                                                    <p> <i class="fa fa-clock-o"></i>{{job.job_type}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="jobs_right">
+                                        <div class="apply_now">
+                                            <a class="heart_mark" href="#"> <i class="fa fa-heart"></i> </a>
+                                            <a href="{% url 'jobs:job_detail' job.slug %}" class="boxed-btn3">Apply Now</a>
+                                        </div>
+                                        <div class="date">
+                                            <p>Date line: {{job.published_at|date:'d M o'}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                              {% if jobs.has_other_pages %}
+                                <div class="pagination_wrap">
+                                  <span class="step-links">
+                                    <ul>
+                                      {% if jobs.has_previous %}
+                                        <li><a href="?page=1"> <i class="ti-angle-double-left"></i> </a></li>
+                                        <li><a href="?page={{ jobs.previous_page_number }}"> <i class="ti-angle-left"></i> </a></li>
+                                      {% endif %}
+                                      {% if jobs.number|add:'-4' > 1 %}
+                                        <li><a href="?page={{ jobs.number|add:'-5' }}"> <i class="ti-more"></i></a></li>
+                                      {% endif %}
+
+
+                                      {% for num in jobs.paginator.page_range %}
+                                        {% if jobs.number == num %}
+                                          <li><a href="#"><span>{{ num }}</span></a></li>
+                                      {% elif num > jobs.number|add:'-5' and num < jobs.number|add:'5' %}
+                                          <li><a href="?page={{ num }}"><span>{{ num }}</span></a></li>
+                                      {% endif %}
+                                      {% endfor %}
+
+                                      {% if jobs.number|add:'4' < jobs.paginator.num_pages %}
+                                          <li><a href="?page={{ jobs.number|add:'5' }}"> <i class="ti-more"></i></a></li>
+                                      {% endif %}
+
+
+                                      {% if jobs.has_next %}
+                                        <li><a href="?page={{ jobs.next_page_number }}"> <i class="ti-angle-right"></i> </a></li>
+                                        <li><a href="?page={{ jobs.paginator.num_pages }}"> <i class="ti-angle-double-right"></i> </a></li>
+                                      {% endif %}
+                                    </ul>
+                                  </span>
+
+                                </div>
+                              {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "job/job_base.html" %}
+{% load bootstrap4 %}
+{% block detial %}
+    <!-- bradcam_area  -->
+    <div class="bradcam_area bradcam_bg_1">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="bradcam_text">
+                      <h3>Add New Job</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/ bradcam_area  -->
+
+
+    <div class="job_listing_area plus_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <div class="job_filter white-bg">
+                        <div class="form_inner white-bg">
+                            <h2>Post New Job</h2>
+                            <form method="POST" enctype="multipart/form-data">
+                              <div class="row">
+                                  <div class="col-lg-12">
+                                      {% csrf_token %}
+                                      {% bootstrap_form form %}
+                                    </div>
+                                  </div>
+                                    <button  class="boxed-btn3 w-100 mt-4" type="submit">Post Now</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
